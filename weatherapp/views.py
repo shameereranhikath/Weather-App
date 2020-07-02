@@ -9,10 +9,18 @@ from .forms import CityCreateForm
 
 def index(request):
     form = CityCreateForm()
+    error_message=''
     if request.method == "POST":
         form = CityCreateForm(request.POST)
         if form.is_valid():
-            form.save()
+            new_city = form.cleaned_data['name']
+            existing_city_count = City.objects.filter(name=new_city).count()
+            if existing_city_count == 0:
+                form.save()
+            else:
+                error_message='City Already exists'
+                print(error_message)
+
         return HttpResponseRedirect("/")
     else:
         url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=19e314a02c78c1106c28037fcf77f454'
@@ -32,7 +40,7 @@ def index(request):
                             'icon': r['weather'][0]['icon'],
                             }
             weather_data_list.append(weather_data)
-        print(weather_data_list)
+        # print(weather_data_list)
         return render(request, 'index.html', {'weather_data': weather_data_list, 'form': form})
 
 
