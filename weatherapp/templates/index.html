@@ -3,21 +3,33 @@
 {% block content%}
 <!--<div class="container" style="display:flex;justify-content:center">-->
 <!--<div style="padding:10px;">-->
+<form action="" method="post">
+    <div class="container" style="display:flex;justify-content:center;">
+    <input type="text">&nbsp;
+    <button class="btn btn-primary">Add City</button>
+  </div>
+</form>
 
+      {% for weather in weather_data %}
     <div class="card"  style="width: 15rem;margin: 10px;">
 <!-- content of the card goes here -->
-        <div class="row">
+        <div class="row" style="font-family: Tahoma, Verdana, Segoe, sans-serif;font-size:15px;">
             <div style="width: 70px;text-align:center;">
-                <img src="http://openweathermap.org/img/w/{{weather_data.icon}}.png" alt="Image">
+                <img src="http://openweathermap.org/img/w/{{weather.icon}}.png" alt="Image">
             </div>
             <div style="width: 150px;">
-                <div class="font-weight-bold">{{weather_data.city}} </div>
-                <div>{{weather_data.temperature}}</div>
-                <div>{{weather_data.description}}</div>
+                <button type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <div class="font-weight-bold">{{weather.city}} </div>
+                <div>{{weather.temperature}} °F</div>
+                <div>{{weather.degreecelsius}} °C</div>
+                <div>Humidity :{{weather.humidity}}%</div>
+                <div>{{weather.description}}</div>
             </div>
         </div>
     </div>
-
+   {% endfor%}
 <!--</div>-->
 
 <!--</div>-->
