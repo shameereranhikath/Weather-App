@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block content%}
+<!--<div class="container" style="display:flex;justify-content:center">-->
+<!--<div style="padding:10px;">-->
+
+    <div class="card"  style="width: 15rem;margin: 10px;">
+<!-- content of the card goes here -->
+        <div class="row">
+            <div style="width: 70px;text-align:center;">
+                <img src="http://openweathermap.org/img/w/{{weather_data.icon}}.png" alt="Image">
+            </div>
+            <div style="width: 150px;">
+                <div class="font-weight-bold">{{weather_data.city}} </div>
+                <div>{{weather_data.temperature}}</div>
+                <div>{{weather_data.description}}</div>
+            </div>
+        </div>
+    </div>
+
+<!--</div>-->
+
+<!--</div>-->
+
+
+{% endblock%}
+
