@@ -3,12 +3,15 @@
 {% block content%}
 <!--<div class="container" style="display:flex;justify-content:center">-->
 <!--<div style="padding:10px;">-->
-<form action="" method="post">
+
     <div class="container" style="display:flex;justify-content:center;">
-    <input type="text">&nbsp;
+        <form action="" method="post">
+            {% csrf_token %}
+        {{form.name}}&nbsp;
     <button class="btn btn-primary">Add City</button>
+            </form>
   </div>
-</form>
+
 
       {% for weather in weather_data %}
     <div class="card"  style="width: 15rem;margin: 10px;">
@@ -18,9 +21,12 @@
                 <img src="http://openweathermap.org/img/w/{{weather.icon}}.png" alt="Image">
             </div>
             <div style="width: 150px;">
-                <button type="button" class="close" aria-label="Close">
+                <form action="{% url 'weatherapp:delete' weather.city %}" method="post">
+                    {% csrf_token %}
+                <button type="submit" class="close" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
+                    </form>
                 <div class="font-weight-bold">{{weather.city}} </div>
                 <div>{{weather.temperature}} °F</div>
                 <div>{{weather.degreecelsius}} °C</div>
