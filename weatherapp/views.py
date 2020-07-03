@@ -47,9 +47,9 @@ def index(request):
     for city in data_city:
         # city = 'Dubai'
         r = requests.get(url.format(city)).json()
-        p = requests.get(url.format(city))
+        # p = requests.get(url.format(city))
         # r=url.format(city)
-        print(p.dt)
+       # 'print(p.dt)
         weather_data = {'city': city,
                         'temperature': r['main']['temp'],
                         'degreecelsius': round((r['main']['temp'] - 32) * 5 / 9, 2),
