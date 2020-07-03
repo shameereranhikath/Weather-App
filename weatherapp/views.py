@@ -8,22 +8,27 @@ from .forms import CityCreateForm
 # Create your views here.
 
 def index(request):
+    url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=19e314a02c78c1106c28037fcf77f454'
     form = CityCreateForm()
-    error_message=''
+    error_message = ''
     if request.method == "POST":
         form = CityCreateForm(request.POST)
         if form.is_valid():
             new_city = form.cleaned_data['name']
             existing_city_count = City.objects.filter(name=new_city).count()
             if existing_city_count == 0:
-                form.save()
+                r = requests.get(url.format(new_city)).json()
+                if r['cod'] == 200:
+                    form.save()
+                else:
+                    error_message = 'Invalid City'
             else:
-                error_message='City Already exists'
+                error_message = 'City Already exists'
                 print(error_message)
 
         return HttpResponseRedirect("/")
     else:
-        url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=19e314a02c78c1106c28037fcf77f454'
+        # url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=imperial&appid=19e314a02c78c1106c28037fcf77f454'
         data_city = City.objects.all()
         weather_data_list = []
         for city in data_city:
