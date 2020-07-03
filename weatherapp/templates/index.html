@@ -9,7 +9,11 @@
             {% csrf_token %}
         {{form.name}}&nbsp;
     <button class="btn btn-primary">Add City</button>
+            {% if message%}
+            <div class="alert {{message_class}}">{{message}}</div>
+            {%endif%}
             </form>
+
   </div>
 
 
